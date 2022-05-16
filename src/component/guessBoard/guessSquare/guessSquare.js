@@ -2,9 +2,11 @@ import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import styles from './guessSquareStyle.js'
 
-function GuessSquare() {
+function GuessSquare({letter}: {letter: string}) {
   return (
-	<View style={styles.guessSquare}></View>
+	<View style={styles.guessSquare}>
+		<Text style={styles.guessLetter}>{letter}</Text>
+	</View>
   );
 }
 

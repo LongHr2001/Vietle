@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import GameScreen from './screens/gameScreen';
+import GameScreen from './screens/gameScreen/gameScreen.js';
 import HelpScreen from './screens/helpScreen';
 import SettingScreen from './screens/settingScreen';
 import StatScreen from './screens/statScreen';
