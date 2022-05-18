@@ -7,7 +7,7 @@ import GameScreen from './screens/gameScreen/gameScreen.js';
 import HelpScreen from './screens/helpScreen';
 import SettingScreen from './screens/settingScreen';
 import StatScreen from './screens/statScreen';
-//import WinScreen from './screens/winScreen';
+import WinScreen from './screens/winScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +21,7 @@ function Index() {
 			<Stack.Screen name="Help" component={HelpScreen} />
 			<Stack.Screen name="Stat" component={StatScreen} />
 			<Stack.Screen name="Setting" component={SettingScreen} />
+			<Stack.Screen name="Win" component={WinScreen} />
 		</Stack.Navigator>
     </NavigationContainer>
   );
