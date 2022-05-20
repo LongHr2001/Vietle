@@ -1,0 +1,28 @@
+const KEYBOARD_KEYS = [
+{label: "Q", accuracy: 0},
+{label: "E", accuracy: 0},
+{label: "R", accuracy: 0},
+{label: "T", accuracy: 0},
+{label: "Y", accuracy: 0},
+{label: "U", accuracy: 0},
+{label: "I", accuracy: 0},
+{label: "O", accuracy: 0},
+{label: "P", accuracy: 0},
+{label: "A", accuracy: 0},
+{label: "S", accuracy: 0},
+{label: "D", accuracy: 0},
+{label: "G", accuracy: 0},
+{label: "H", accuracy: 0},
+{label: "K", accuracy: 0},
+{label: "L", accuracy: 0},
+{label: "NHẬP", accuracy: 0},
+{label: "X", accuracy: 0},
+{label: "C", accuracy: 0},
+{label: "V", accuracy: 0},
+{label: "B", accuracy: 0},
+{label: "N", accuracy: 0},
+{label: "M", accuracy: 0},
+{label: "XÓA", accuracy: 0},
+];
+
+export default KEYBOARD_KEYS;
