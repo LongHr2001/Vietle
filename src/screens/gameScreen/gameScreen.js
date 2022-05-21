@@ -63,7 +63,7 @@ function GameScreen({ navigation }) {
 						
 						if (accuracy[guessIndex] === '11111') {
 							alert("Chính xác!");
-							navigation.navigate('Win');
+							navigation.navigate('Win', {accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
 						} else {
 							setGuessIndex(guessIndex + 1);
 						}
@@ -74,7 +74,7 @@ function GameScreen({ navigation }) {
 				}
 			} else {
 				alert("Từ chính xác là:" + CORRECT_WORD);
-				navigation.navigate('Win');
+				navigation.navigate('Win', {accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
 			}
 		}
 		else if (guesses[guessIndex].length < wordLength) {
