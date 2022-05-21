@@ -36,12 +36,20 @@ function StatScreen({ navigation, route }) {
 	var message = "Việtle ".concat(guessIndex + 1).concat("/").concat(wordLength + 1).concat(":\n\n");
 	
 	Array(guessIndex + 1).fill(1).map((e, i) => {
-		let temp = accuracy[i];
+		let temp = "";
 		
+		accuracy[i].split("").map(e => {
+			if (e === '1') {temp = temp.concat(greenSquare);}
+			else if (e === '2') {temp = temp.concat(yellowSquare);}
+			else if (e === '3') {temp = temp.concat(whiteSquare);}
+		});
+		
+		message = message.concat(temp).concat("\n");
 	});
 	
 	const copyToClipboard = async () => {
 		await Clipboard.setStringAsync(message);
+		alert("Copy thành công");
 	};
 	
 	const onShare = async () => {
