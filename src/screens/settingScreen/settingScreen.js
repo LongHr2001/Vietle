@@ -1,24 +1,21 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useTheme } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import { LIGHT_THEME, DARK_THEME, ThemeContext } from '../../util/themes.js';
 
 import Toggle from '../../component/toggle/toggle.js';
 
+import BasicHeader from '../../component/basicHeader/basicHeader.js';
+
 import styles from './settingScreenStyle.js';
 
 function SettingScreen({ navigation }) {
-	const {colors} = useTheme();
-	const textColor = {color: colors.text};
-	
-	const titleStyles = [styles.title];
-	titleStyles.push(textColor);
-	
 	const {theme, setTheme} = React.useContext(ThemeContext);
+	
+	const textColor = {color: theme.colors.text};
 	
 	const handleAccessibility = () => {
 		let temp = !theme.accessible;
@@ -34,19 +31,7 @@ function SettingScreen({ navigation }) {
 	
 	return (
 		<View style={{flexDirection: 'column'}}>
-			<View style={{flexDirection: 'row'}}>
-				<View style={{flex: 1}}>
-					<TouchableOpacity style={{width: 30}} onPress={() => navigation.goBack()} >
-						<FontAwesomeIcon color={colors.text} style={{margin: 5}} icon={"times"} size={30} />
-					</TouchableOpacity>
-				</View>
-				
-				<View style={{flex: 1, alignItems: "center", marginTop: 5}}>
-					<Text style={titleStyles}>CÀI ĐẶT</Text>
-				</View>
-				
-				<View style={{flex: 1}}></View>
-			</View>
+			<BasicHeader iconColor={theme.colors.text} title={"CÀI ĐẶT"} onPress={() => navigation.goBack()} />
 			
 			<View>
 				<View style={styles.optionRow}>
@@ -71,7 +56,7 @@ function SettingScreen({ navigation }) {
 			</View>
 			
 			<View>
-				<Text style={{color: colors.text, textAlign: 'center'}}>Vietle By Team 13: Nguyễn Vũ Hải Long, Trần Trung Hiếu, Nguyễn Lê Hải Nam</Text>
+				<Text style={{color: theme.colors.text, textAlign: 'center'}}>Vietle By Team 13: Nguyễn Vũ Hải Long, Trần Trung Hiếu, Nguyễn Lê Hải Nam</Text>
 			</View>
 		</View>
 	);

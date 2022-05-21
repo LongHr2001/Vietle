@@ -9,7 +9,7 @@ import GameScreen from './screens/gameScreen/gameScreen';
 import HelpScreen from './screens/helpScreen';
 import SettingScreen from './screens/settingScreen/settingScreen';
 import StatScreen from './screens/statScreen/statScreen';
-import WinScreen from './screens/winScreen';
+import WinScreen from './screens/winScreen/winScreen';
 
 const Stack = createNativeStackNavigator();
 

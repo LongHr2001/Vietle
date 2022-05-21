@@ -4,7 +4,7 @@ import styles from './guessBoardStyle.js'
 
 import GuessSquare from './guessSquare/guessSquare.js'
 
-function GuessRow({wordLength, guess, accuracy, dark, accessible}) {
+export function GuessRow({wordLength, guess, accuracy, dark, accessible}) {
 	const letters = guess.split("");
 	
 	return (
