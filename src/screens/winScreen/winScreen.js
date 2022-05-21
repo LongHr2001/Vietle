@@ -37,19 +37,9 @@ function StatScreen({ navigation }) {
 			
 			<View style={{alignItems: 'center'}}>
 				<View style={{flexDirection: 'row'}}>
-					<Text style={{margin: 5}}>Share</Text>
+					<Text style={{margin: 5}}>Copy</Text>
 					
-					<View>
-						<TouchableOpacity style={{width: 30}} onPress={() => console.log("Facebook")} >
-							<FontAwesomeIcon color={theme.colors.text} style={{padding: 10}} icon={['fab', 'facebook']} size={30} />
-						</TouchableOpacity>
-					</View>
-
-					<View>
-						<TouchableOpacity style={{width: 30}} onPress={() => console.log("Twitter")} >
-							<FontAwesomeIcon color={theme.colors.text} style={{padding: 10}} icon={['fab', 'twitter']} size={30} />
-						</TouchableOpacity>
-					</View>
+					<Text style={{margin: 5}}>Chia sẻ</Text>
 				</View>
 			</View>
 		</View>
