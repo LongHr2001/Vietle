@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
@@ -8,8 +8,11 @@ import styles from './basicHeaderStyle.js';
 function BasicHeader({iconColor, title, onPress}) {
 	const titleStyles = [styles.title];
 	
+	const titleFontSize = Dimensions.get("window").width < 500 ? (Dimensions.get("window").width/ 20) : 25;
+	
 	const color = {color: iconColor}
 	titleStyles.push(color);
+	titleStyles.push({fontSize: titleFontSize});
 	
 	return (
 		<View style={{flexDirection: 'row'}}>

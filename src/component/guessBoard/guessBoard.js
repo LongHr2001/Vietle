@@ -15,7 +15,8 @@ export function GuessRow({wordLength, guess, accuracy, dark, accessible}) {
 				letter={letters[i]}
 				accuracy={accuracy[i]}
 				dark={dark}
-				accessible={accessible} />
+				accessible={accessible}
+				wordLength={wordLength}/>
 			)}
 		</View>
 	);

@@ -16,9 +16,13 @@ const data = {
 	labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
 	datasets: [
 	  {
-		data: [1, 2, 3, 4, 5, 6, 7, 8],
+		data: [0, 0, 1, 0, 0, 0, 0, 0],
 	  },
 	],
+	
+	totalWins: 1,
+	winRatio: 1,
+	winStreak: 1,
 }
 
 const greenSquare = String.fromCodePoint(0x1F7E9);
@@ -32,8 +36,9 @@ function StatScreen({ navigation, route }) {
 	const accuracy = route.params.accuracy;
 	const guessIndex = route.params.guessIndex;
 	const wordLength = route.params.wordLength;
+	const win = route.params.win;
 	
-	var message = "Việtle ".concat(guessIndex + 1).concat("/").concat(wordLength + 1).concat(":\n\n");
+	var message = "Việtle ".concat(win ? guessIndex + 1 : "X").concat("/").concat(wordLength + 1).concat(":\n\n");
 	
 	Array(guessIndex + 1).fill(1).map((e, i) => {
 		let temp = "";
@@ -56,9 +61,7 @@ function StatScreen({ navigation, route }) {
 		try {
 			const result = await Share.share({ message: message });
 			if (result.action === Share.sharedAction) {
-				//shared
-			} else if (result.action === Share.dismissedAction) {
-				// dismissed
+				alert("Chia sẻ thành công");
 			}
 		} catch (error) {
 			alert(error.message);
@@ -66,8 +69,10 @@ function StatScreen({ navigation, route }) {
 	};
 	
 	return (
-		<View style={{flexDirection: 'column'}}>
-			<BasicHeader iconColor={theme.colors.text} title={"KẾT QUẢ"} onPress={() => navigation.goBack()} />
+		<View style={{flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
+			<View style={{marginTop: 5}}>
+				<BasicHeader iconColor={theme.colors.text} title={win ? "THẮNG" : "THUA"} onPress={() => navigation.goBack()} />
+			</View>	
 			
 			<StatModule
 			data={data}
@@ -76,7 +81,7 @@ function StatScreen({ navigation, route }) {
 			dark={theme.dark}	
 			textColor={textColor}/>
 			
-			<View style={{alignItems: 'center'}}>
+			<View style={{alignItems: 'center', marginTop: 10}}>
 				<View style={{flexDirection: 'row'}}>
 					<Button buttonLabel={"COPY"} onPress={copyToClipboard} accessible={theme.accessible} />
 					

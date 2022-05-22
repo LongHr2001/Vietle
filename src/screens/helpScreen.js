@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import guessSquare from "/src/component/guessBoard/guessSquare/guessSquare.js";
+import guessSquare from "../component/guessBoard/guessSquare/guessSquare.js";
 
 function HelpScreen({ navigation }) {
   return (

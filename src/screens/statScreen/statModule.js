@@ -3,12 +3,18 @@ import { View, Text } from 'react-native';
 import {BarChart} from "react-native-chart-kit";
 
 function StatModule({data, backgroundColor, accessible, dark, textColor}) {
+	const labelStyle = [textColor];
+	labelStyle.push({fontSize: 20}); 
+	
+	const numberStyle = [textColor];
+	numberStyle.push({fontSize: 30, fontWeight: "bold"});
+	
 	return (
 		<View>
 			<View style={{alignItems: 'center'}}>
 				<BarChart
 				data={data}
-				width={500}
+				width={400}
 				height={300}
 				fromZero={true}
 				withHorizontalLabels={false}
@@ -32,18 +38,18 @@ function StatModule({data, backgroundColor, accessible, dark, textColor}) {
 			
 			<View style={{flexDirection: 'row'}}>
 				<View style={{flex: 1, alignItems: 'center'}}>
-					<Text style={textColor}>Số lần thắng</Text>
-					<Text style={textColor}>1</Text>
+					<Text style={labelStyle}>Số lần thắng</Text>
+					<Text style={numberStyle}>{data.totalWins}</Text>
 				</View>
 				
 				<View style={{flex: 1, alignItems: 'center'}}>
-					<Text style={textColor}>Tỉ lệ thắng</Text>
-					<Text style={textColor}>2</Text>
+					<Text style={labelStyle}>Tỉ lệ thắng</Text>
+					<Text style={numberStyle}>{data.winRatio * 100}%</Text>
 				</View>
 				
 				<View style={{flex: 1, alignItems: 'center'}}>
-					<Text style={textColor}>Chuỗi thắng</Text>
-					<Text style={textColor}>3</Text>
+					<Text style={labelStyle}>Chuỗi thắng</Text>
+					<Text style={numberStyle}>{data.winStreak}</Text>
 				</View>
 			</View>
 		</View>

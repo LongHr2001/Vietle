@@ -10,14 +10,28 @@ import GameScreenRenderer from './gameScreenRenderer.js'
 
 import styles from './gameScreenStyle.js';
 
-function GameScreen({ navigation }) {
-	const CORRECT_WORD = "HELLO";
-	const DICTIONARY = ["HELLO", "RALLY", "SUGAR", "RIGHT", "CRANE", "QUEEN", "HORNY"];
+function checkIfCorrect(s: string) {
+	for (let i = 1; i < s.length; i++) {
+		if (s[i] != '1') return false;
+	}
 	
+	return true;
+}
+
+function hardModeCheck(s1: string, s2: string) {
+	return true;
+}
+
+const CORRECT_WORD = "HELLO";
+const DICTIONARY = ["HELLO", "RALLY", "SUGAR", "RIGHT", "CRANE", "QUEEN", "HORNY", "HELLOEEE", "LOVELIVE", "HELLHOLE"];
+
+function GameScreen({ navigation }) {	
 	const [wordLength, setWordLength] = React.useState(CORRECT_WORD.length);
 	const [guessIndex, setGuessIndex] = React.useState(0);
 	
 	const [tries, setTries] = React.useState(wordLength + 1);
+	const [gameComplete, setGameComplete] = React.useState(false);
+	const [hardMode, setHardMode] = React.useState(false);
 
 	const [guesses, setguesses] = React.useState(Array(tries).fill(""));
 	
@@ -54,16 +68,18 @@ function GameScreen({ navigation }) {
 								temp += '3';
 								tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 3;
 							}	
-						})
+						})					
+						
 						tempAccuracy[guessIndex] = temp;
 						
 						setAccuracy(tempAccuracy);
 						
 						setKeyboard(tempKeyboard);
 						
-						if (accuracy[guessIndex] === '11111') {
+						if (checkIfCorrect(accuracy[guessIndex])) {
 							alert("Chính xác!");
-							navigation.navigate('Win', {accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
+							setGameComplete(true);
+							navigation.navigate('Win', {win: true, accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
 						} else {
 							setGuessIndex(guessIndex + 1);
 						}
@@ -74,7 +90,8 @@ function GameScreen({ navigation }) {
 				}
 			} else {
 				alert("Từ chính xác là:" + CORRECT_WORD);
-				navigation.navigate('Win', {accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
+				setGameComplete(true);
+				navigation.navigate('Win', {win: false, accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
 			}
 		}
 		else if (guesses[guessIndex].length < wordLength) {

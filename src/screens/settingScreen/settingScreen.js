@@ -30,8 +30,10 @@ function SettingScreen({ navigation }) {
 	}
 	
 	return (
-		<View style={{flexDirection: 'column'}}>
-			<BasicHeader iconColor={theme.colors.text} title={"CÀI ĐẶT"} onPress={() => navigation.goBack()} />
+		<View style={{flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
+			<View style={{marginTop: 5}}>
+				<BasicHeader iconColor={theme.colors.text} title={"CÀI ĐẶT"} onPress={() => navigation.goBack()} />
+			</View>
 			
 			<View>
 				<View style={styles.optionRow}>
@@ -56,7 +58,7 @@ function SettingScreen({ navigation }) {
 			</View>
 			
 			<View>
-				<Text style={{color: theme.colors.text, textAlign: 'center'}}>Vietle By Team 13: Nguyễn Vũ Hải Long, Trần Trung Hiếu, Nguyễn Lê Hải Nam</Text>
+				<Text style={{color: theme.colors.text, textAlign: 'center', fontSize: 10}}>Vietle By Team 13: Nguyễn Vũ Hải Long, Trần Trung Hiếu, Nguyễn Lê Hải Nam</Text>
 			</View>
 		</View>
 	);

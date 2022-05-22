@@ -16,8 +16,8 @@ function GameScreenRenderer({ navigation, wordLength, guesses, accuracy, handleK
 	const textColor = {color: theme.colors.text};
 	
 	return (
-		<View style={{flex: 1, flexDirection: 'column'}}>
-			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+		<View style={{flex: 1, flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
+			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5}}>
 				<View style={{flex: 1, justifyContent: 'flex-start'}}>
 					<TouchableOpacity style={{width: 25}} onPress={() => navigation.navigate('Help')} >
 						<FontAwesomeIcon color={theme.colors.text} style={{margin: 5}} icon={"question-circle"} size={25} />
@@ -39,7 +39,7 @@ function GameScreenRenderer({ navigation, wordLength, guesses, accuracy, handleK
 				</View>
 			</View>
 			
-			<View style={{flex: 7, alignItems: 'center'}}>
+			<View style={{flex: 7, alignItems: 'center', justifyContent: 'center', padding: 5}}>
 				<GuessBoard
 				wordLength={wordLength}
 				guesses={guesses}
@@ -49,7 +49,7 @@ function GameScreenRenderer({ navigation, wordLength, guesses, accuracy, handleK
 				/>
 			</View>
 			
-			<View style={{flex: 5, alignItems: 'center', justifyContent: 'center'}}>
+			<View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
 				<Keyboard
 				onPress={handleKey}
 				keyboard={keyboard}

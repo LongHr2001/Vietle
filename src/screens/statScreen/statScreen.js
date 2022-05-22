@@ -13,9 +13,13 @@ const data = {
 	labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
 	datasets: [
 	  {
-		data: [1, 2, 3, 4, 5, 6, 7, 8],
+		data: [0, 0, 0, 0, 0, 0, 0, 0],
 	  },
 	],
+	
+	totalWins: 0,
+	winRatio: 0,
+	winStreak: 0,
 }
 
 function StatScreen({ navigation }) {
@@ -24,8 +28,10 @@ function StatScreen({ navigation }) {
 	const textColor = {color: theme.colors.text};
 	
 	return (
-		<View style={{flexDirection: 'column'}}>
-			<BasicHeader iconColor={theme.colors.text} title={"THỐNG KÊ"} onPress={() => navigation.goBack()} />
+		<View style={{flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
+			<View style={{marginTop: 5}}>
+				<BasicHeader iconColor={theme.colors.text} title={"THỐNG KÊ"} onPress={() => navigation.goBack()} />
+			</View>
 			
 			<StatModule
 			data={data}
