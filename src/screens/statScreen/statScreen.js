@@ -6,24 +6,13 @@ import { ThemeContext } from '../../util/themes.js';
 
 import BasicHeader from '../../component/basicHeader/basicHeader.js';
 import StatModule from './statModule.js';
+import { StatisticContext } from '../../data/playerStatistic.js';
 
 import styles from './statScreenStyle.js';
 
-const data = {
-	labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
-	datasets: [
-	  {
-		data: [0, 0, 0, 0, 0, 0, 0, 0],
-	  },
-	],
-	
-	totalWins: 0,
-	winRatio: 0,
-	winStreak: 0,
-}
-
 function StatScreen({ navigation }) {
 	const {theme, setTheme} = React.useContext(ThemeContext);
+	const {playerData, setPlayerData} = React.useContext(StatisticContext);
 	
 	const textColor = {color: theme.colors.text};
 	
@@ -37,7 +26,7 @@ function StatScreen({ navigation }) {
 			</View>
 			
 			<StatModule
-			data={data}
+			data={playerData}
 			backgroundColor={theme.colors.background}
 			accessible={theme.accessible}
 			dark={theme.dark}	

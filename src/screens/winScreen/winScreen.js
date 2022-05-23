@@ -10,21 +10,9 @@ import { GameCompleteContext } from '../../util/gameComplete.js';
 import BasicHeader from '../../component/basicHeader/basicHeader.js';
 import Button from '../../component/button/button.js';
 import StatModule from '../statScreen/statModule.js';
+import { StatisticContext } from '../../data/playerStatistic.js';
 
 import styles from './winScreenStyle.js';
-
-const data = {
-	labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
-	datasets: [
-	  {
-		data: [0, 0, 1, 0, 0, 0, 0, 0],
-	  },
-	],
-	
-	totalWins: 1,
-	winRatio: 1,
-	winStreak: 1,
-}
 
 const greenSquare = String.fromCodePoint(0x1F7E9);
 const yellowSquare = String.fromCodePoint(0x1F7E8);
@@ -33,6 +21,8 @@ const whiteSquare = String.fromCodePoint(0x2B1C);
 function StatScreen({ navigation, route }) {
 	const {theme, setTheme} = React.useContext(ThemeContext);
 	const textColor = {color: theme.colors.text};
+	
+	const {playerData, setPlayerData} = React.useContext(StatisticContext);
 	
 	const maxWidth = 500;
 	const minWidth = Dimensions.get("window").width < 500 ? Dimensions.get("window").width : 500;
@@ -86,7 +76,7 @@ function StatScreen({ navigation, route }) {
 			</View>	
 			
 			<StatModule
-			data={data}
+			data={playerData}
 			backgroundColor={theme.colors.background}
 			accessible={theme.accessible}
 			dark={theme.dark}	

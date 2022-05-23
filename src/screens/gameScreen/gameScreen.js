@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import KEYBOARD_KEYS from '../../component/keyboard/keyboardKeys.js';
 import GameScreenRenderer from './gameScreenRenderer.js'
 import { GameCompleteContext } from '../../util/gameComplete.js';
+import { StatisticContext } from '../../data/playerStatistic.js';
 
 import styles from './gameScreenStyle.js';
 
@@ -27,7 +28,9 @@ const CORRECT_WORD = "HELLO";
 const DICTIONARY = ["HELLO", "RALLY", "SUGAR", "RIGHT", "CRANE", "QUEEN", "HORNY", "HELLOEEE", "LOVELIVE", "HELLHOLE"];
 
 function GameScreen({ navigation }) {
+	
 	const {gameComplete, setGameComplete} = React.useContext(GameCompleteContext);
+	const {playerData, setPlayerData} = React.useContext(StatisticContext);
 	
 	const [wordLength, setWordLength] = React.useState(CORRECT_WORD.length);
 	const [guessIndex, setGuessIndex] = React.useState(0);
@@ -92,6 +95,16 @@ function GameScreen({ navigation }) {
 						
 						if (checkIfCorrect(accuracy[guessIndex])) {
 							alert("Chính xác!");
+							
+							let temp = {...playerData};
+							temp.datasets[0].data[guessIndex] += 1;
+							temp.totalWins += 1;
+							temp.winStreak += 1;
+							temp.gameCount += 1;
+							temp.winRatio = temp.totalWins / temp.gameCount;
+							
+							setPlayerData(temp);
+							
 							setGameComplete(true);
 							navigation.navigate('Win', {win: true, accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
 						} else {
@@ -104,6 +117,14 @@ function GameScreen({ navigation }) {
 				}
 			} else {
 				alert("Từ chính xác là:" + CORRECT_WORD);
+				
+				let temp = {...playerData};
+				temp.winStreak = 0;
+				temp.gameCount += 1;
+				temp.winRatio = temp.totalWins / temp.gameCount;
+				
+				setPlayerData(temp);
+				
 				setGameComplete(true);
 				navigation.navigate('Win', {win: false, accuracy: accuracy, guessIndex: guessIndex, wordLength: wordLength});
 			}
