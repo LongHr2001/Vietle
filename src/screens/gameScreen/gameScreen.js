@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import KEYBOARD_KEYS from '../../component/keyboard/keyboardKeys.js';
 import GameScreenRenderer from './gameScreenRenderer.js'
+import { GameCompleteContext } from '../../util/gameComplete.js';
 
 import styles from './gameScreenStyle.js';
 
@@ -25,25 +26,38 @@ function hardModeCheck(s1: string, s2: string) {
 const CORRECT_WORD = "HELLO";
 const DICTIONARY = ["HELLO", "RALLY", "SUGAR", "RIGHT", "CRANE", "QUEEN", "HORNY", "HELLOEEE", "LOVELIVE", "HELLHOLE"];
 
-function GameScreen({ navigation }) {	
+function GameScreen({ navigation }) {
+	const {gameComplete, setGameComplete} = React.useContext(GameCompleteContext);
+	
 	const [wordLength, setWordLength] = React.useState(CORRECT_WORD.length);
 	const [guessIndex, setGuessIndex] = React.useState(0);
 	
 	const [tries, setTries] = React.useState(wordLength + 1);
-	const [gameComplete, setGameComplete] = React.useState(false);
-	const [hardMode, setHardMode] = React.useState(false);
 
-	const [guesses, setguesses] = React.useState(Array(tries).fill(""));
+	const [guesses, setGuesses] = React.useState(Array(tries).fill(""));
 	
 	const [accuracy, setAccuracy] = React.useState(Array(tries).fill("00000"));
 	
 	const [keyboard, setKeyboard] = React.useState(KEYBOARD_KEYS);
 	
+	React.useEffect(() => {
+		if (!gameComplete) {
+			KEYBOARD_KEYS.map(letter => letter.accuracy = 0);
+			setWordLength(CORRECT_WORD.length);
+			setGuessIndex(0);
+			setTries(wordLength + 1);
+			setGuesses(Array(tries).fill(""));
+			setAccuracy(Array(tries).fill("00000"));
+
+			setKeyboard(KEYBOARD_KEYS);
+		}
+	}, [gameComplete])
+	
 	const handleKey = (letter: string) => {
 		if (letter == "XÓA") {
 			let temp = [...guesses];
 			temp[guessIndex] = temp[guessIndex].slice(0, -1);
-			setguesses(temp);
+			setGuesses(temp);
 		}
 		else if (letter == "NHẬP") {
 			if (guessIndex < tries - 1) {
@@ -97,7 +111,7 @@ function GameScreen({ navigation }) {
 		else if (guesses[guessIndex].length < wordLength) {
 			let temp = [...guesses];
 			temp[guessIndex] += letter;
-			setguesses(temp);
+			setGuesses(temp);
 		}
 	};
 	

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -15,9 +15,12 @@ function GameScreenRenderer({ navigation, wordLength, guesses, accuracy, handleK
 	
 	const textColor = {color: theme.colors.text};
 	
+	const maxWidth = 500;
+	const minWidth = Dimensions.get("window").width < 500 ? Dimensions.get("window").width : 500;
+	
 	return (
-		<View style={{flex: 1, flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
-			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5}}>
+		<View style={{flex: 1, flexDirection: 'column', minWidth: minWidth, maxWidth: maxWidth, marginHorizontal: 'auto'}}>
+			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10}}>
 				<View style={{flex: 1, justifyContent: 'flex-start'}}>
 					<TouchableOpacity style={{width: 25}} onPress={() => navigation.navigate('Help')} >
 						<FontAwesomeIcon color={theme.colors.text} style={{margin: 5}} icon={"question-circle"} size={25} />

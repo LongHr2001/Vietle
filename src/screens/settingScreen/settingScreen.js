@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -17,6 +17,9 @@ function SettingScreen({ navigation }) {
 	
 	const textColor = {color: theme.colors.text};
 	
+	const maxWidth = 500;
+	const minWidth = Dimensions.get("window").width < 500 ? Dimensions.get("window").width : 500;
+	
 	const handleAccessibility = () => {
 		let temp = !theme.accessible;
 		setTheme({...theme, accessible: temp});
@@ -30,8 +33,8 @@ function SettingScreen({ navigation }) {
 	}
 	
 	return (
-		<View style={{flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
-			<View style={{marginTop: 5}}>
+		<View style={{flexDirection: 'column', minWidth: minWidth, maxWidth: maxWidth, marginHorizontal: 'auto'}}>
+			<View style={{marginTop: 15}}>
 				<BasicHeader iconColor={theme.colors.text} title={"CÀI ĐẶT"} onPress={() => navigation.goBack()} />
 			</View>
 			

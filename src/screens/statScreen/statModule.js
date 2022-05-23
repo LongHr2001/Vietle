@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import {BarChart} from "react-native-chart-kit";
 
-function StatModule({data, backgroundColor, accessible, dark, textColor}) {
+function StatModule({data, backgroundColor, accessible, dark, textColor, chartWidth}) {
 	const labelStyle = [textColor];
 	labelStyle.push({fontSize: 20}); 
 	
@@ -11,11 +11,11 @@ function StatModule({data, backgroundColor, accessible, dark, textColor}) {
 	
 	return (
 		<View>
-			<View style={{alignItems: 'center'}}>
+			<View style={{alignItems: 'flex-start'}}>
 				<BarChart
 				data={data}
-				width={400}
-				height={300}
+				width={chartWidth}
+				height={350}
 				fromZero={true}
 				withHorizontalLabels={false}
 				withInnerLines={false}

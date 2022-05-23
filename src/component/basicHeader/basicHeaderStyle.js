@@ -8,6 +8,6 @@ export default StyleSheet.create({
 	},
 	
 	title: {
-		fontWeight: 500,
+		fontWeight: "500",
 	},
 });

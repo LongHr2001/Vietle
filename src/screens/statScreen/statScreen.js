@@ -27,9 +27,12 @@ function StatScreen({ navigation }) {
 	
 	const textColor = {color: theme.colors.text};
 	
+	const maxWidth = 500;
+	const minWidth = Dimensions.get("window").width < 500 ? Dimensions.get("window").width : 500;
+	
 	return (
-		<View style={{flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
-			<View style={{marginTop: 5}}>
+		<View style={{flexDirection: 'column', minWidth: minWidth, maxWidth: maxWidth, marginHorizontal: 'auto'}}>
+			<View style={{marginTop: 15}}>
 				<BasicHeader iconColor={theme.colors.text} title={"THỐNG KÊ"} onPress={() => navigation.goBack()} />
 			</View>
 			
@@ -38,7 +41,8 @@ function StatScreen({ navigation }) {
 			backgroundColor={theme.colors.background}
 			accessible={theme.accessible}
 			dark={theme.dark}	
-			textColor={textColor}/>
+			textColor={textColor}
+			chartWidth={minWidth * 0.8}/>
 		</View>
 	);
 }

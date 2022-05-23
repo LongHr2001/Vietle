@@ -2,10 +2,11 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Share } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ThemeContext } from '../../util/themes.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import * as Clipboard from 'expo-clipboard';
 
+import { ThemeContext } from '../../util/themes.js';
+import { GameCompleteContext } from '../../util/gameComplete.js';
 import BasicHeader from '../../component/basicHeader/basicHeader.js';
 import Button from '../../component/button/button.js';
 import StatModule from '../statScreen/statModule.js';
@@ -33,12 +34,17 @@ function StatScreen({ navigation, route }) {
 	const {theme, setTheme} = React.useContext(ThemeContext);
 	const textColor = {color: theme.colors.text};
 	
+	const maxWidth = 500;
+	const minWidth = Dimensions.get("window").width < 500 ? Dimensions.get("window").width : 500;
+	
 	const accuracy = route.params.accuracy;
 	const guessIndex = route.params.guessIndex;
 	const wordLength = route.params.wordLength;
 	const win = route.params.win;
 	
 	var message = "Việtle ".concat(win ? guessIndex + 1 : "X").concat("/").concat(wordLength + 1).concat(":\n\n");
+	
+	const {gameComplete, setGameComplete} = React.useContext(GameCompleteContext);
 	
 	Array(guessIndex + 1).fill(1).map((e, i) => {
 		let temp = "";
@@ -68,10 +74,15 @@ function StatScreen({ navigation, route }) {
 		}
 	};
 	
+	const replay = () => {
+		setGameComplete(!gameComplete);
+		navigation.goBack();
+	};
+	
 	return (
-		<View style={{flexDirection: 'column', maxWidth: 500, marginHorizontal: 'auto'}}>
-			<View style={{marginTop: 5}}>
-				<BasicHeader iconColor={theme.colors.text} title={win ? "THẮNG" : "THUA"} onPress={() => navigation.goBack()} />
+		<View style={{flexDirection: 'column', minWidth: minWidth, maxWidth: maxWidth, marginHorizontal: 'auto'}}>
+			<View style={{marginTop: 15}}>
+				<BasicHeader iconColor={theme.colors.text} title={win ? "THẮNG" : "THUA"} onPress={() => {}} backDisabled={true}/>
 			</View>	
 			
 			<StatModule
@@ -79,13 +90,16 @@ function StatScreen({ navigation, route }) {
 			backgroundColor={theme.colors.background}
 			accessible={theme.accessible}
 			dark={theme.dark}	
-			textColor={textColor}/>
+			textColor={textColor}
+			chartWidth={minWidth * 0.8}/>
 			
 			<View style={{alignItems: 'center', marginTop: 10}}>
 				<View style={{flexDirection: 'row'}}>
 					<Button buttonLabel={"COPY"} onPress={copyToClipboard} accessible={theme.accessible} />
 					
 					<Button buttonLabel={"CHIA SẺ"} onPress={onShare} accessible={theme.accessible} />
+					
+					<Button buttonLabel={"CHƠI LẠI"} onPress={replay} accessible={theme.accessible} />
 				</View>
 			</View>
 		</View>
