@@ -9,6 +9,7 @@ import KEYBOARD_KEYS from '../../component/keyboard/keyboardKeys.js';
 import GameScreenRenderer from './gameScreenRenderer.js'
 import { GameCompleteContext } from '../../util/gameComplete.js';
 import { StatisticContext } from '../../data/playerStatistic.js';
+import * as wordsHandle from '../../data/wordsHandle.js';
 
 import styles from './gameScreenStyle.js';
 
@@ -24,18 +25,19 @@ function hardModeCheck(s1: string, s2: string) {
 	return true;
 }
 
-const CORRECT_WORD = "HELLO";
-const DICTIONARY = ["HELLO", "RALLY", "SUGAR", "RIGHT", "CRANE", "QUEEN", "HORNY", "HELLOEEE", "LOVELIVE", "HELLHOLE"];
-
-function GameScreen({ navigation }) {
-	
+function GameScreen({ navigation }) {	
 	const {gameComplete, setGameComplete} = React.useContext(GameCompleteContext);
 	const {playerData, setPlayerData} = React.useContext(StatisticContext);
+	
+	const [wordObject, setWordObject] = React.useState(wordsHandle.chooseRandomWord());
+	
+	const [CORRECT_WORD, setCORRECT_WORD] = React.useState(wordObject.wordNoAccent.toUpperCase());
+	console.log(CORRECT_WORD)
 	
 	const [wordLength, setWordLength] = React.useState(CORRECT_WORD.length);
 	const [guessIndex, setGuessIndex] = React.useState(0);
 	
-	const [tries, setTries] = React.useState(wordLength + 1);
+	var tries = wordLength + 1;
 
 	const [guesses, setGuesses] = React.useState(Array(tries).fill(""));
 	
@@ -46,15 +48,22 @@ function GameScreen({ navigation }) {
 	React.useEffect(() => {
 		if (!gameComplete) {
 			KEYBOARD_KEYS.map(letter => letter.accuracy = 0);
-			setWordLength(CORRECT_WORD.length);
+			setWordObject(wordsHandle.chooseRandomWord());
+			
+			let temp = wordObject.wordNoAccent.toUpperCase();
+			setCORRECT_WORD(temp);
+			setWordLength(temp.length);
+			
 			setGuessIndex(0);
-			setTries(wordLength + 1);
+
+			tries = wordLength + 1;
+			
 			setGuesses(Array(tries).fill(""));
 			setAccuracy(Array(tries).fill("00000"));
 
 			setKeyboard(KEYBOARD_KEYS);
 		}
-	}, [gameComplete])
+	}, [gameComplete, wordLength])
 	
 	const handleKey = (letter: string) => {
 		if (letter == "XÓA") {
@@ -67,7 +76,7 @@ function GameScreen({ navigation }) {
 				if (guesses[guessIndex].length < wordLength) {
 					alert("Chưa đủ kí tự!");
 				} else if (guesses[guessIndex].length == wordLength) {
-					if (DICTIONARY.includes(guesses[guessIndex])) {
+					if (wordsHandle.checkInDictionary(guesses[guessIndex])) {
 						let tempAccuracy = accuracy;
 						
 						let temp = "";
@@ -77,13 +86,20 @@ function GameScreen({ navigation }) {
 						guesses[guessIndex].split("").map((guessLetter, i) => {
 							if (CORRECT_WORD.includes(guessLetter) && CORRECT_WORD[i] === guessLetter) {
 								temp += "1";
-								tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 1;
+								
+								if (tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy > 1) {
+									tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 1;
+								}
 							} else if (CORRECT_WORD.includes(guessLetter)) {
 								temp += '2';
-								tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 2;
+								if (tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy > 2) {
+									tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 2;
+								}
 							} else {
 								temp += '3';
-								tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 3;
+								if (tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy > 3) {
+									tempKeyboard[tempKeyboard.findIndex(e => e.label == guessLetter)].accuracy = 3;
+								}
 							}	
 						})					
 						
@@ -116,7 +132,7 @@ function GameScreen({ navigation }) {
 					}
 				}
 			} else {
-				alert("Từ chính xác là:" + CORRECT_WORD);
+				alert("Từ chính xác là:" + wordObject.word.toUpperCase());
 				
 				let temp = {...playerData};
 				temp.winStreak = 0;

@@ -7,7 +7,7 @@ function GuessSquare({wordLength, letter, accuracy, dark, accessible}) {
 	const squareStyles = [styles.guessSquare];
 	const letterStyles = [styles.letter];
 	
-	const squareSize = wordLength > 5 ? (250 / wordLength) : 40;
+	const squareSize = wordLength > 5 ? (200 / wordLength) : 40;
 	const letterFontSize = wordLength > 5 ? (100 / wordLength) : 20;
 	const margin = wordLength > 6 ? (30 / wordLength) : 5;
 	
